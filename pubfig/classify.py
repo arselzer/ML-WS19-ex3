@@ -16,11 +16,11 @@ image_generator = ImageDataGenerator(rescale=1./255, validation_split=0.2)
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 LEARNING_RATE = 0.0001
-BATCH_SIZE = 64
-NUM_EPOCHS = 30
+BATCH_SIZE = 32
 NUM_TRAIN = 100
 STEPS_PER_EPOCH = round(NUM_TRAIN) // BATCH_SIZE
 VAL_STEPS = 20
+NUM_EPOCHS = 5
 
 train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
 	directory="persons-cropped",
@@ -63,7 +63,9 @@ model.summary()
 model.fit(
 	train_data,
 	epochs=NUM_EPOCHS,
-	steps_per_epoch=STEPS_PER_EPOCH,
+	steps_per_epoch=None,
 	validation_data=validation_data,
-	validation_steps=VAL_STEPS)
+	validation_steps=None,
+	verbose=2
+)
 
