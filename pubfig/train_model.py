@@ -21,7 +21,7 @@ BATCH_SIZE = 32
 NUM_TRAIN = 100
 STEPS_PER_EPOCH = round(NUM_TRAIN) // BATCH_SIZE
 VAL_STEPS = 20
-NUM_EPOCHS = 3
+NUM_EPOCHS = 20
 
 train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
 	directory="persons-cropped",
@@ -58,18 +58,28 @@ dropout_layer = tf.keras.layers.Dropout(0.2)
 model = tf.keras.Sequential([
 	base_model,
 	maxpool_layer,
-#	dropout_layer,
 	prediction_layer
 ])
 
-model.compile(optimizer=tf.keras.optimizers.Adam(lr=LEARNING_RATE),
-	loss="binary_crossentropy",
+model = tf.keras.Sequential([
+	tf.keras.layers.Conv2D(16, 3, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Conv2D(32, 3, padding="same", activation="relu"),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Conv2D(64, 3, padding="same", activation="relu"),
+	tf.keras.layers.Flatten(),
+	tf.keras.layers.Dense(60, activation="sigmoid")
+])
+
+model.compile(
+	optimizer=tf.keras.optimizers.Adam(lr=LEARNING_RATE),
+	loss="categorical_crossentropy",
 	metrics=["accuracy"]
 )
 
 model.summary()
 
-model.fit(
+history = model.fit(
 	train_data,
 	epochs=NUM_EPOCHS,
 	steps_per_epoch=None,
@@ -79,5 +89,7 @@ model.fit(
 	workers=6,
 	verbose=2
 )
+
+print(history)
 
 model.save("model.h5")

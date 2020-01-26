@@ -14,18 +14,16 @@ import tensorflow as tf
 import PIL
 import skimage
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from keras.utils import plot_model
 
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 
-
-# First recreate the class labels from the directories
-
-#image_generator = ImageDataGenerator(rescale=1./255)
-#train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
-#	directory=sys.argv[1],
-#	target_size=(IMG_HEIGHT, IMG_WIDTH),
-#	class_mode=None)
+image_generator = ImageDataGenerator(rescale=1./255)
+train_data = image_generator.flow_from_directory(batch_size=32,
+	directory=sys.argv[1],
+	target_size=(IMG_HEIGHT, IMG_WIDTH),
+	class_mode=None)
 
 def load_image(filename):
 	img = tf.keras.preprocessing.image.load_img(filename, target_size=(IMG_WIDTH,IMG_HEIGHT))
@@ -49,9 +47,12 @@ model = tf.keras.models.load_model("model.h5")
 
 model.summary()
 
-img = load_image(sys.argv[1])
+#plot_model(model, to_file='model.png')
 
-predictions = model.predict(img, verbose=1)
+#img = load_image(sys.argv[1])
+
+#predictions = model.predict(img, verbose=1)
+predictions = model.predict(train_data, verbose=1)
 prediction = predictions.argmax(axis=-1)
 
 print(predictions)
