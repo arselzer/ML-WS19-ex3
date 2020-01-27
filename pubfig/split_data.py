@@ -1,15 +1,9 @@
-
-# coding: utf-8
-
-# In[16]:
-
-
 import os
 import random
 
-directory = "./persons-cropped"
-destination_directory = "./persons-cropped-test"
-drop_quote = 0.1
+directory = "./eval/persons-cropped"
+destination_directory = "./eval/persons-cropped-test"
+drop_quote = 0.15
 
 if not (os.path.isdir(os.path.join(destination_directory))):
     os.mkdir(os.path.join(destination_directory))
@@ -25,7 +19,7 @@ for filename in os.listdir(directory):
             images_dropped += 1
             os.rename(os.path.join(directory, filename, image), os.path.join(destination_directory, filename, image))
             print(os.path.join(directory, filename, image))
-            
+
 print("Alle: ", images_sum)
 print("Moved: ", images_dropped)
 print("Moved-Quote: ", round(images_dropped/images_sum, 4))
