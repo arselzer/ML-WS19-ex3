@@ -72,7 +72,7 @@ model = tf.keras.Sequential([
 	tf.keras.layers.Dropout(0.1),
 	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu"),
 	tf.keras.layers.Flatten(),
-	tf.keras.layers.Dense(60, activation="sigmoid")
+	tf.keras.layers.Dense(140, activation="sigmoid")
 ])
 
 model.compile(
