@@ -64,7 +64,7 @@ model = tf.keras.Sequential([
 model = tf.keras.Sequential([
 	tf.keras.layers.Conv2D(16, 3, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
 	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Dropout(0.2)
+	tf.keras.layers.Dropout(0.2),
 	tf.keras.layers.Conv2D(32, 3, padding="same", activation="relu"),
 	tf.keras.layers.MaxPooling2D(),
 	tf.keras.layers.Conv2D(64, 3, padding="same", activation="relu"),
