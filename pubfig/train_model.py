@@ -14,14 +14,14 @@ people = pd.read_csv("dev_people.txt")
 
 image_generator = ImageDataGenerator(rescale=1./255, validation_split=0.2, rotation_range=45, zoom_range=0.2)
 
-IMG_HEIGHT = 150
-IMG_WIDTH = 150
+IMG_HEIGHT = 128
+IMG_WIDTH = 128
 LEARNING_RATE = 0.0001
 BATCH_SIZE = 32
 NUM_TRAIN = 100
 STEPS_PER_EPOCH = round(NUM_TRAIN) // BATCH_SIZE
 VAL_STEPS = 20
-NUM_EPOCHS = 20
+NUM_EPOCHS = 62
 
 train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
 	directory="persons-cropped",
@@ -64,6 +64,7 @@ model = tf.keras.Sequential([
 model = tf.keras.Sequential([
 	tf.keras.layers.Conv2D(16, 3, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
 	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Dropout(0.2)
 	tf.keras.layers.Conv2D(32, 3, padding="same", activation="relu"),
 	tf.keras.layers.MaxPooling2D(),
 	tf.keras.layers.Conv2D(64, 3, padding="same", activation="relu"),
