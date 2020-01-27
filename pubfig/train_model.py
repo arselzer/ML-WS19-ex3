@@ -24,7 +24,7 @@ VAL_STEPS = 20
 NUM_EPOCHS = 72
 
 train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
-	directory="persons-cropped",
+	directory="eval/persons-cropped",
 	shuffle=True,
 	target_size=(IMG_HEIGHT, IMG_WIDTH),
 	class_mode="categorical",
@@ -37,7 +37,7 @@ with open("labels.json", "w") as labels_file:
 	labels_file.write(json.dumps(labels))
 
 validation_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
-	directory="persons-cropped",
+	directory="eval/persons-cropped",
 	shuffle=True,
 	target_size=(IMG_HEIGHT, IMG_WIDTH),
 	class_mode="categorical",
