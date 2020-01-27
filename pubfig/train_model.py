@@ -61,7 +61,7 @@ model = tf.keras.Sequential([
 	prediction_layer
 ])
 
-model = tf.keras.Sequential([
+model_02 = tf.keras.Sequential([
 	tf.keras.layers.Conv2D(64, 6, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
 	tf.keras.layers.MaxPooling2D(),
 	tf.keras.layers.Dropout(0.1),
@@ -74,6 +74,30 @@ model = tf.keras.Sequential([
 	tf.keras.layers.Flatten(),
 	tf.keras.layers.Dense(140, activation="sigmoid")
 ])
+
+model_03 = tf.keras.Sequential([
+	tf.keras.layers.Conv2D(64, 5, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3),
+            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Dropout(0.1),
+	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
+            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
+            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Dropout(0.1),
+	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
+            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
+	tf.keras.layers.MaxPooling2D(),
+	tf.keras.layers.Dropout(0.1),
+	tf.keras.layers.Conv2D(256, 3, padding="same", activation="relu",
+            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
+	tf.keras.layers.Flatten(),
+	tf.keras.layers.Dense(140, activation="sigmoid")
+])
+
+model = model_03
 
 model.compile(
 	optimizer=tf.keras.optimizers.Adam(lr=LEARNING_RATE),
