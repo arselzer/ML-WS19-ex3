@@ -1,0 +1,7 @@
+numpy
+tensorflow
+pandas
+keras_VGGFace
+scikit-image
+pillow
+matplotlib
