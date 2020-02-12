@@ -4,8 +4,8 @@
 import os
 import random
 
-directory = "./big/persons-adversarial"
-destination_directory = "./big/persons-adversiarial-odds"
+directory = "./persons-adversarial"
+destination_directory = "./persons-adversiarial-odds"
 
 if not (os.path.isdir(os.path.join(destination_directory))):
     os.mkdir(os.path.join(destination_directory))

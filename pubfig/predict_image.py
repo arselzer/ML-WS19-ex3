@@ -16,14 +16,8 @@ import skimage
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.utils import plot_model
 
-IMG_HEIGHT = 128
-IMG_WIDTH = 128
-
-image_generator = ImageDataGenerator(rescale=1./255)
-train_data = image_generator.flow_from_directory(batch_size=32,
-	directory=sys.argv[1],
-	target_size=(IMG_HEIGHT, IMG_WIDTH),
-	class_mode=None)
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
 
 def load_image(filename):
 	img = tf.keras.preprocessing.image.load_img(filename, target_size=(IMG_WIDTH,IMG_HEIGHT))
@@ -33,10 +27,7 @@ def load_image(filename):
 	img = np.expand_dims(img, axis=0) / 255
 	return img
 
-from glob import glob
-class_names = glob("persons-cropped/*")
-class_names = sorted(class_names)
-#labels = dict(zip(class_names, range(len(class_names))))
+train_data = load_image(sys.argv[1])
 
 labels_file = open("labels.json", "r")
 labels = json.loads(labels_file.read())

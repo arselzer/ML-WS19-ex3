@@ -1,8 +1,8 @@
 import os
 import random
 
-directory = "./eval/persons-cropped"
-destination_directory = "./eval/persons-cropped-test"
+directory = "./persons-cropped"
+destination_directory = "./persons-cropped-test"
 drop_quote = 0.15
 
 if not (os.path.isdir(os.path.join(destination_directory))):

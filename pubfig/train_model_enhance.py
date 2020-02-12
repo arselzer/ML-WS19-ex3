@@ -12,12 +12,12 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #people = pd.read_csv("dev_people.txt")
 
-labels_file = open("big/labels.json", "r")
+labels_file = open("labels.json", "r")
 labels = json.loads(labels_file.read())
 
 #print(labels)
 
-model = tf.keras.models.load_model("big/model.h5")
+model = tf.keras.models.load_model("model.h5")
 
 image_generator = ImageDataGenerator(rescale=1./255, validation_split=0.1, rotation_range=45, zoom_range=0.2)
 
@@ -31,7 +31,7 @@ VAL_STEPS = 20
 NUM_EPOCHS = 45
 
 train_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
-	directory="big/persons-adversarial",
+	directory="persons-adversarial",
 	shuffle=True,
 	target_size=(IMG_HEIGHT, IMG_WIDTH),
 	class_mode="categorical",
@@ -44,64 +44,11 @@ with open("labels_advproof.json", "w") as labels_file:
 	labels_file.write(json.dumps(labels))
 
 validation_data = image_generator.flow_from_directory(batch_size=BATCH_SIZE,
-	directory="big/persons-adversarial",
+	directory="persons-adversarial",
 	shuffle=True,
 	target_size=(IMG_HEIGHT, IMG_WIDTH),
 	class_mode="categorical",
 	subset="validation")
-
-base_model = tf.keras.applications.MobileNetV2(
-	input_shape=(IMG_WIDTH, IMG_HEIGHT, 3),
-	include_top=False,
-	weights="imagenet"
-)
-
-base_model.trainable = True
-
-maxpool_layer = tf.keras.layers.GlobalMaxPooling2D()
-prediction_layer = tf.keras.layers.Dense(60, activation="sigmoid")
-dropout_layer = tf.keras.layers.Dropout(0.2)
-
-#model = tf.keras.Sequential([
-#	base_model,
-#	maxpool_layer,
-#	prediction_layer
-#])
-
-model_01 = tf.keras.Sequential([
-	tf.keras.layers.Conv2D(64, 6, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
-	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Dropout(0.1),
-	tf.keras.layers.Conv2D(64, 3, padding="same", activation="relu"),
-	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu"),
-	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Dropout(0.1),
-	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu"),
-	tf.keras.layers.Flatten(),
-	tf.keras.layers.Dense(140, activation="sigmoid")
-])
-
-model_02 = tf.keras.Sequential([
-	tf.keras.layers.Conv2D(64, 5, padding="same", activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3),
-            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
-	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Dropout(0.1),
-	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
-            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
-	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
-            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
-	tf.keras.layers.Conv2D(128, 3, padding="same", activation="relu",
-            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
-	tf.keras.layers.MaxPooling2D(),
-	tf.keras.layers.Dropout(0.1),
-	tf.keras.layers.Conv2D(256, 3, padding="same", activation="relu",
-            kernel_regularizer=tf.keras.regularizers.l2(0.001), activity_regularizer=tf.keras.regularizers.l2(0.001)),
-	tf.keras.layers.Flatten(),
-	tf.keras.layers.Dense(140, activation="sigmoid")
-])
-
-#model = model_02
 
 model.compile(
 	optimizer=tf.keras.optimizers.Adam(lr=LEARNING_RATE),

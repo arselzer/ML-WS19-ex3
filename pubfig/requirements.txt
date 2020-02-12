@@ -5,3 +5,4 @@ keras_VGGFace
 scikit-image
 pillow
 matplotlib
+opencv-python
