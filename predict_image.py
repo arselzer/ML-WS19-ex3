@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+import os
+import sys
+
+def print_usage():
+    print("USAGE:", sys.argv[0],"model_path image_path")
+    quit()
+
+if (len(sys.argv) != 3):
+    print_usage()
 
 import concurrent.futures
 import pandas as pd
@@ -6,9 +15,7 @@ import numpy as np
 import urllib
 import pathlib
 import hashlib
-import os
-import sys
-import cv2
+#import cv2
 import json
 import tensorflow as tf
 import PIL
@@ -27,14 +34,14 @@ def load_image(filename):
 	img = np.expand_dims(img, axis=0) / 255
 	return img
 
-train_data = load_image(sys.argv[1])
+train_data = load_image(sys.argv[2])
 
 labels_file = open("labels.json", "r")
 labels = json.loads(labels_file.read())
 
 print(labels)
 
-model = tf.keras.models.load_model("model.h5")
+model = tf.keras.models.load_model(sys.argv[1])
 
 model.summary()
 

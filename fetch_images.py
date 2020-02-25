@@ -2,7 +2,7 @@
 
 import concurrent.futures
 import pandas as pd
-import urllib
+import urllib.request
 import pathlib
 import hashlib
 from threading import Thread
@@ -23,6 +23,8 @@ def fetch_image(url, name, imageid, correct_md5sum):
 			print("hashes do not match up (image " + imageid + " of " + name + "): " + image_md5sum + " vs actual: " + correct_md5sum)
 	except Exception as e:
 		print("timeout fetching " + url + e)
+
+print("Fetching images...")
 
 people = pd.read_csv("eval_people.txt")
 

@@ -23,9 +23,13 @@ The file `eval_people.txt` contains a list of all people (labels) and the file `
 `python3 crop_images.py`
 
 3) perform the train test split
- `python3 split_data.py`
+`python3 split_data.py`
 
-4) Train the model: run jupyter notebook and the file `VGGface_Final.ipynb`
+4) to train the model from scratch with the generated training and test data, run
+`python3 VGGFace_Final.py`
+   In the case where a saved model needs to be trained further, for example with attack data, one can run the command with the following parameters:
+`python3 VGGFace_Final.py test_data_path validation_data_path model_path`
+   If a model needs to be trained from scratch on non-standard data, the `model_path` argument can be omitted.
 
 5) to predict an image run
 `python3 predict_image.py model_path image_path` 
