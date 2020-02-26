@@ -34,8 +34,9 @@ The file `eval_people.txt` contains a list of all people (labels) and the file `
    If a model needs to be trained from scratch on non-standard data, the `model_path` argument can be omitted.
 
 5) to predict an image run
-`python3 predict_image.py model_path image_path` 
-   Example: ./predict\_image.py model.h5 persons-cropped-test/Adriana\ Lima/115.jpg
+`python3 predict_image.py model_path image_path`
+
+   Example: `./predict\_image.py model.h5 persons-cropped-test/Adriana\ Lima/115.jpg`
 
 6) to run adversarial image generation open `tensorflow_adversarial_attack.ipynb` with `jupyter`. If installed with pip, the binary will be in the current user's `.local/bin` folder.
 
