@@ -2,7 +2,7 @@
 
 ## Installing dependencies 
 
-We worked with python 3 and tensorflow 2.1, jupyter notebook, and also with foolbox 2.
+We worked with python 3, tensorflow 2.1, jupyter and also with foolbox 2.
 
 First, you need to manually install `python3`, `pip` and `imagemagick` via your system's package manager.
 This needs to be done manually, as each distribution has different package names/versions and commands to install them.
@@ -27,18 +27,23 @@ The file `eval_people.txt` contains a list of all people (labels) and the file `
 
 4) to train the model from scratch with the generated training and test data, run
 `python3 VGGFace_Final.py`
+
    In the case where a saved model needs to be trained further, for example with attack data, one can run the command with the following parameters:
 `python3 VGGFace_Final.py test_data_path validation_data_path model_path`
+
    If a model needs to be trained from scratch on non-standard data, the `model_path` argument can be omitted.
 
 5) to predict an image run
 `python3 predict_image.py model_path image_path` 
-Example: ./predict\_image.py model.h5 persons-cropped-test/Adriana\ Lima/115.jpg
+   Example: ./predict\_image.py model.h5 persons-cropped-test/Adriana\ Lima/115.jpg
 
-6) to run adversarial image generation see `tensorflow_adversarial_attack.ipynb`
+6) to run adversarial image generation open `tensorflow_adversarial_attack.ipynb` with `jupyter`. If installed with pip, the binary will be in the current user's `.local/bin` folder.
 
 7) to generate statistics run `generate_statistics.ipynb` interactively or
 
-`./generate_statistics.py model method`, method is either 'gaussian' or 'saliency'
+   `./generate_statistics.py model method`, method is either 'gaussian' or 'saliency'
 
-Example: `./generate_statistics.py model.h5 gaussian`
+   Example: `./generate_statistics.py model.h5 gaussian`
+
+## Further remarks
+The original jupyter notebooks we used to prototype are still present in the project files. We tried to turn all of them into self-contained python scripts. However the adverserial attack generation is not really suitable for this format due to its visual nature, so we decided to keep it in its original one. 
