@@ -33,5 +33,12 @@ The file `eval_people.txt` contains a list of all people (labels) and the file `
 
 5) to predict an image run
 `python3 predict_image.py model_path image_path` 
+Example: ./predict\_image.py model.h5 persons-cropped-test/Adriana\ Lima/115.jpg
 
 6) to run adversarial image generation see `tensorflow_adversarial_attack.ipynb`
+
+7) to generate statistics run `generate_statistics.ipynb` interactively or
+
+`./generate_statistics.py model method`, method is either 'gaussian' or 'saliency'
+
+Example: `./generate_statistics.py model.h5 gaussian`
