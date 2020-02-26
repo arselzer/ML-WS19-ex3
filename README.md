@@ -2,7 +2,7 @@
 
 ## Installing dependencies 
 
-We worked with python 3 and tensorflow 2.1, and also with foolbox 2.
+We worked with python 3 and tensorflow 2.1, jupyter notebook, and also with foolbox 2.
 
 First, you need to manually install `python3`, `pip` and `imagemagick` via your system's package manager.
 This needs to be done manually, as each distribution has different package names/versions and commands to install them.
